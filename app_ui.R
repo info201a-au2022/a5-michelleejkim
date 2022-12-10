@@ -1,16 +1,16 @@
-library("dplyr")
-library("tidyverse")
-library("ggplot2")
-library("plotly")
-library("rsconnect")
-library("shiny")
+# library("dplyr")
+# library("tidyverse")
+# library("ggplot2")
+# library("plotly")
+# library("rsconnect")
+# library("shiny")
 
 # loading dataset
 co2_data <- read.csv("./data/owid-co2-data.csv")
 
 first_page <- tabPanel(
   "Introduction",
-  h1(strong("Relationship between Global Warming & CO2")),
+  h1(strong("Relationship between Global Warming & Carbon Dioxide from Gas")),
   img("", src = "https://cdn.images.express.co.uk/img/dynamic/151/590x/Climate-change-2025-CO2-global-warming-carbon-dioxide-1308968.webp?r=1594731626139",
       width = "600", height = "300", align = "center"),
   p("Climate change is a long-term change in the average weather patterns 
@@ -21,44 +21,52 @@ first_page <- tabPanel(
     including burning coal, oil or natural gas. Although it’s impossible to not produce 
     carbon dioxide, it is essential to realize how much carbon dioxide are produced in 
     each country and take action to help limit climate change such as saving energy at 
-    home, taking public transportations and more. "),
-  h1(strong("Data Analysis")),
-  p("What is the average value of co2 in U.S? ", strong(avg_co2,"million tones")),
-  p("When was co2 the highest in the U.S?" , strong(highest_co2_year, "million tones" )),
-  p("What is the highest value of co2 in the U.S? ", strong(highest_co2_value, "million tones"))
+    home, taking public transportations and more. ")
+  
 )
 
 second_page <- tabPanel(
-  "Carbon Dioxide Data",
+  "Three Important Values",
+  mainPanel(
+    h1(strong("Three Important Values")), 
+    p("What is the average value of co2 from gas in U.S? ", strong(avg_gas_co2,"million tones")),
+    p("When was co2 from gas the highest in the U.S?" , strong("Year", highest_gas_co2_year)),
+    p("What is the highest value of co2 from gas in the U.S? ", strong(highest_gas_co2_value, "million tones"))
+  ))
+
+
+
+third_page <- tabPanel(
+  "Production of Carbon Dioxide",
   sidebarLayout( 
     sidebarPanel( 
-      selectInput( 
-        inputId = "country", label = "Select Country:",
-        choices = unique(co2_data$country), selected = NULL
-      ),
       sliderInput( 
         inputId = "year", label = "Select Year:",
         min = 1900, max = 2021, value = c(1900, 2021)
+      ),
+      selectInput( 
+        inputId = "country", label = "Select Country:",
+        choices = unique(co2_data$country), selected = NULL
       )),
-      mainPanel(
-        plotlyOutput("chart")
-      )
-    ),
-  p("The Total amount of co2 produced in each country. 
-    Overall, the total production is increasing, meaning global temperature is 
-    also rising. This chart is important because it reveals that most of the 
-    countries are producing excessive amount of carbon dioxide and warns people 
-    that if they do not take any further actions, climate change can impact 
-    human health and environments. ")
-  )
+    mainPanel(
+      plotlyOutput("chart")
+    )
+  ),
+  p("Overall, the total amount of carbon dioxide from gas produced in each country is increasing, 
+  which indicates that the global temperature is also rising. This chart is important 
+  because it reveals that most of the countries are producing excessive amount of 
+  carbon dioxide and warns people that if they do not take any further actions, 
+  climate change can impact human health and environments. Therefore, this chart
+  gives people from all nation a message to take actions to limit global warming. 
+ ")
+)
 
 
 
 #Define UI
 ui <- navbarPage(
-  "Climate Change",
-  theme = shinythemes::shinytheme("cosmo"),
+  "Global Warming",
   first_page,
-  second_page
+  second_page,
+  third_page
 )
-

@@ -5,9 +5,10 @@ account: michelleejkim
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 7853754
-bundleId: 6613686
+bundleId: 6619135
 url: https://michelleejkim.shinyapps.io/a5-michelleejkim/
-when: 1670555464.70942
-lastSyncTime: 1670555464.70944
+when: 1670653253.76674
+lastSyncTime: 1670653253.76676
 asMultiple: FALSE
 asStatic: FALSE
+ignoredFiles: LICENSE|README.md
